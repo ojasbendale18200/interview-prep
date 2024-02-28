@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+    <input type="text" id="input">
+    <button id="button" type="submit">submit</button>
+</form>
+<div id="display"></div>
+</body>
+</html>
+
+<script>
+let form = document.querySelector("form")
+
+let taskArray = []
+
+form.addEventListener("submit",(e) => {
+e.preventDefault()
+
+let obj = {
+    task:document.querySelector("#input").value,
+    id: new Date().getTime(),
+    completed:false
+}
+
+taskArray.push(obj)
+displayTasks(taskArray)
+
+
+})
+
+function displayTasks(arr) {
+document.querySelector("#display").innerHTML = ""
+let listArr = arr.map((item,index) => {
+     return `<h2>${item.task}</h2>
+             <p onclick=handleToggle(${item})>${item.completed ? "completed" : "not completed"}</p>
+             <button onclick=handleDelete(${index})>Delete</button> 
+                `
+})
+
+document.querySelector("#display").innerHTML = listArr.join(" ")
+
+
+}
+
+function handleDelete(index) {
+taskArray.splice(index,1)
+displayTasks(taskArray)
+}
+
+function handleToggle(item) {
+console.log(item)
+}
+  
+
+
+
+
+
+</script>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello</h1>
+    <input type="text" id="search-input">
+</body>
+</html>
+
+<script>
+function throttle(func, delay) {
+  let timeoutId;
+  return function (...args) {
+    if (!timeoutId) {
+      timeoutId = setTimeout(() => {
+        func.apply(this, args);
+        timeoutId = null;
+      }, delay);
+    }
+  };
+}
+
+function findSuggestions(e) {
+  // Simulating search request
+  console.log("Searching for:", e.target.value);
+  // Perform actual search logic here
+}
+
+const decoretedFindSuggestions = throttle(findSuggestions, 500);
+
+const inputBar = document.getElementById("search-input");
+inputBar.addEventListener("input", decoretedFindSuggestions);
+</script>
